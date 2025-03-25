@@ -1,18 +1,12 @@
 import numpy as np
 import random
-
+import constantes as cs
 #import Clase_Tablero_Hundir_La_flota as tb
-dict_barcos = {
-    "Carrier": 2,
-    "Battleship":4,
-    "Cruiser": 1,
-    "Submarine": 2,
-    "Destroyer": 3,
-}
+
 class Usuario:
     
 
-    def __init__(self, nombre, barcos = dict_barcos, barcos_hundidos = 0):
+    def __init__(self, nombre, barcos = cs.dict_barcos, barcos_hundidos = 0):
         self.nombre = nombre
         self.barcos = barcos
         self.barcos_hundidos = barcos_hundidos
@@ -46,7 +40,7 @@ class Usuario:
         while int(coordenada_1) > 10 or int(coordenada_1) < 1: #Verifica que se haya metido una coordenada válida y si no la vuelve a pedir
             print("La coordenada no puede ser mayor de 10")
             coordenada_1 = input("Introduce la fila (del 1 al 10): ")
-        coordenada_2 = input("Introduce la columna: ")
+        coordenada_2 = input("Introduce la columna (del 1 al 10): ")
         coordenada_2
         while int(coordenada_2) > 10 or int(coordenada_1) < 1:
             print("La coordenada no puede ser mayor de 10")
@@ -81,3 +75,9 @@ jugador = Usuario("Jugador")
 
 maquina = Usuario("Máquina")
 
+
+maquina.tablero_barcos[:, 2] = "O"
+jugador.disparo_jugador()
+print(maquina.tablero_barcos)
+print(jugador.tablero_disparos)
+print(maquina.calcula_vidas())
