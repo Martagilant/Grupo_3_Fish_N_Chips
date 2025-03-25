@@ -1,22 +1,27 @@
 import numpy as np
 import random
 import constantes as cs
-#import Clase_Tablero_Hundir_La_flota as tb
+import clase_barco_2 as cb
 
+#import Clase_Tablero_Hundir_La_flota_2 as tablero
+np.random.seed(42)
 class Usuario:
     
 
-    def __init__(self, nombre, barcos = cs.dict_barcos, barcos_hundidos = 0):
+    def __init__(self, nombre, barcos = cb.dict_barcos, barcos_hundidos = 0):
         self.nombre = nombre
         self.barcos = barcos
         self.barcos_hundidos = barcos_hundidos
-        self.tablero_barcos = np.full((10,10)," ") #Falta importar clase tablero y poner un tablero creado ahí
-        self.tablero_disparos = np.full((10,10)," ") #Falta importar clase tablero y poner un tablero creado ahí
+        self.tablero_barcos = np.full((10,10), " ") #Falta importar clase tablero y poner un tablero creado ahí
+        self.tablero_disparos = np.full((10,10), " ") #Falta importar clase tablero y poner un tablero creado ahí
         self.vidas = self.calcula_vidas()
 
 
-    def coloca_barco(self):
-        pass # llamar a la función de clase barco
+    def coloca_barcos_aleatorio(self):
+        np.random.seed(42)
+        for indice, barco in self.barcos.items():
+            barco.colocar_barco(self.tablero_barcos)
+        return self.tablero_barcos
     
     def disparo_maquina(self):
         ubicacion = [random.randint(0,len(self.tablero_disparos)-1),random.randint(0,len(self.tablero_disparos)-1)] #Limita el aleatorio a las dimensiones del tablero
@@ -26,12 +31,14 @@ class Usuario:
         
         if jugador.tablero_barcos[ubicacion[0], ubicacion[1]] == "O":
             jugador.tablero_barcos[ubicacion[0], ubicacion[1]] = "X" #Marca el acierto en el tablero de barcos del jugador
-            self.tablero_disparos[ubicacion[0], ubicacion[1]] = "X" #Marca el acierto en el tablero de disparos de la máquina
-            return True #Para controlar el bucle while en el que irá incluido y saber si sigue disparando o no
+            self.tablero_disparos[ubicacion[0], ubicacion[1]] = "X"
+            resultado = True #Marca el acierto en el tablero de disparos de la máquina
+            return resultado #Para controlar el bucle while en el que irá incluido y saber si sigue disparando o no
         else:
             jugador.tablero_barcos[ubicacion[0], ubicacion[1]] = "-" #Marca el fallo
             self.tablero_disparos[ubicacion[0], ubicacion[1]] = "-"
-            return False
+            resultado = False
+            return resultado
         
 
     def disparo_jugador(self):
@@ -50,14 +57,20 @@ class Usuario:
         if maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "O": #mismo mecanismo que disparo máquina
             maquina.tablero_barcos[ubicacion[0], ubicacion[1]] = "X"
             self.tablero_disparos[ubicacion[0], ubicacion[1]] = "X"
-            return True
+            print(jugador.tablero_disparos)
+            resultado = True
+            return resultado
         if maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "X" or maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "-": #avisa al jugador si ya ha disparado ahí pero el turno lo pierde igual
             print("Ya has disparado ahí")
-            return False
+            print(jugador.tablero_disparos)
+            resultado = False
+            return resultado
         else:
             maquina.tablero_barcos[ubicacion[0], ubicacion[1]] = "-"
             self.tablero_disparos[ubicacion[0], ubicacion[1]] = "-"
-            return False
+            print(jugador.tablero_disparos)
+            resultado = False
+            return resultado
     
     def calcula_vidas(self): #Recorre todo el array contado las O, ese es el número de vidas
         contador_vidas = 0
@@ -72,12 +85,4 @@ class Usuario:
         pass
 
 jugador = Usuario("Jugador")
-
-maquina = Usuario("Máquina")
-
-
-maquina.tablero_barcos[:, 2] = "O"
-jugador.disparo_jugador()
-print(maquina.tablero_barcos)
-print(jugador.tablero_disparos)
-print(maquina.calcula_vidas())
+maquina = Usuario("Maquina")

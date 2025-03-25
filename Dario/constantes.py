@@ -11,3 +11,5 @@ dict_barcos = dict_barcos = {
     "Destroyer_1": 3,
     "Destroyer_1": 3
 }
+
+turnos = 100
