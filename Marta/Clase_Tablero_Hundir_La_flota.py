@@ -1,48 +1,61 @@
 
 class Tablero:
 
-    def __init__(self, name, tamano, jugador_id, barcos, impactos):
+    def __init__(self, tamano, jugador_id, barcos,tablero_impacto ):
         self.tamano = tamano
-        self.name = name
         self.tablero = self.CrearVacio(tamano)
         self.jugador_id = jugador_id
         self.barcos = barcos # Diccionario con barcos y sus esloras
-        self.impactos = impactos #tablero para los impactos
+        self.tablero_impacto = tablero_impacto #tablero para los impactos
         
     def CrearVacio(self, tamano):
         tablero = np.full((tamano,tamano)," ")
         print(tablero)
         return tablero
     
-         
     
-    def ubicador_barcos(self, eslora,ubicacion, orientacion):
-        
-
-        for i in range(eslora):
-          
-            if ubicacion[0] <0 or ubicacion[0] > self.tamano or ubicacion[1] <0 or ubicacion[1] > self.tamano:
+    def ubicador_barcos(self, eslora, ubicacion, orientacion):
+        fila, columna = ubicacion
+        if orientacion == "n":   #Orientacion N, el barco se colocará hacia arriba. La fila de inicio menos la eslora no sea menor que 0  
+            if fila - eslora + 1 < 0:
                 print("No se puede poner un barco en esa posición")
-                break
-            if self.tablero[ubicacion[0],ubicacion[1]] == "O":
+                return False
+        elif orientacion == "s": #Orientación es S, el barco se colocará hacia abajo. La fila de inicio más la eslora no salga del tablero
+            if fila + eslora > self.tamano:
+                print("No se puede poner un barco en esa posición")
+                return False
+        elif orientacion == "e": #E, el barco a la dcha. La columna de inicio más la eslora no salga tablero.
+            if columna + eslora > self.tamano:
+                print("No se puede poner un barco en esa posición")
+                return False
+        elif orientacion == "o": #O, el barco se colocará hacia la izq. La columna de inicio menosbjl la eslora no salga tablero.
+            if columna - eslora + 1 < 0:
+                print("No se puede poner un barco en esa posición")
+                return False
+        else:
+            print("Orientación no válida, solo n, s, e, o")
+            return False
+        
+        for i in range(eslora): #colocar barcos y que no haya ninguno ya ahi
+            if self.tablero[fila, columna] == "O":
                 print("Ya hay un barco en esa posición")
-                break
-        
-            self.tablero[ubicacion[0],ubicacion[1]] = "O"
-        
+                return False
+            
+            self.tablero[fila, columna] = "O"
+            
             if orientacion == "n":
-                ubicacion[0] = ubicacion[0] - 1
+                fila -= 1
             elif orientacion == "s":
-                ubicacion[0] = ubicacion[0] + 1
+                fila += 1
             elif orientacion == "e":
-                ubicacion[1] = ubicacion[1] + 1
+                columna += 1
             elif orientacion == "o":
-                ubicacion[1] = ubicacion[1] - 1
-            else:
-                print("Orientación no válida, solo n,s,e,o")
-                break
+                columna -= 1
+        
         print(self.tablero)
-        return self.tablero
+        return True    
+    
+    
     
     def disparo(self, ubicacion):
         if ubicacion[0] <0 or ubicacion[0] > self.tamano or ubicacion[1] <0 or ubicacion[1] > self.tamano:
@@ -88,3 +101,4 @@ class Tablero:
                             print("Posición inválida. Inténtalo de nuevo.")
                     except ValueError:
                         print("Entrada inválida. Asegúrate de introducir números enteros.")
+#Comprueba que no salga
