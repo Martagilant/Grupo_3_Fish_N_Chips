@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import Clase_Tablero_Hundir_La_flota as tablero
+from constantes import dict_barcos
 
 #creamos la clase barco  
 class Barco:
