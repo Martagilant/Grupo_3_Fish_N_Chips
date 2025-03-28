@@ -91,4 +91,5 @@ class Usuario:
         pass
 
 jugador = Usuario("Jugador")
+
 maquina = Usuario("Maquina")
