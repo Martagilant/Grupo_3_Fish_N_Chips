@@ -4,7 +4,7 @@ import clase_usuario as cu
 import constantes as cs
 import clase_barco_2 as cb
 import random
-#import Clase_Tablero_Hundir_La_flota_2 as tablero
+import Clase_Tablero_Hundir_La_flota_2 as tablero
 import time
 
 np.random.seed(42)
