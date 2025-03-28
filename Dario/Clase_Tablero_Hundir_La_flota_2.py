@@ -4,7 +4,6 @@ import clase_usuario as cu
 import constantes as cs
 import clase_barco_2 as cb
 import random
-import Clase_Tablero_Hundir_La_flota_2 as tablero
 import time
 
 class Tablero:
@@ -109,3 +108,10 @@ class Tablero:
                     except ValueError:
                         print("Entrada inválida. Asegúrate de introducir números enteros.")
 #Comprueba que no salga
+
+tablero_barcos_jugador = Tablero(cs.lado_tablero, cu.jugador, cs.dict_barcos, [])
+#tablero_barcos_jugador.CrearVacio(10)
+print(tablero_barcos_jugador.tablero)
+tablero_disparos_jugador = Tablero(cs.lado_tablero, cu.jugador, cs.dict_barcos, [])
+tablero_barcos_maquina = Tablero(cs.lado_tablero, cu.maquina, cs.dict_barcos, [])
+tablero_disparos_maquina = Tablero(cs.lado_tablero, cu.maquina, cs.dict_barcos, [])
