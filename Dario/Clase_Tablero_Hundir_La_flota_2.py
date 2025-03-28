@@ -20,7 +20,7 @@ class Tablero:
         return tablero
     
     
-    def ubicador_barcos(self, eslora, ubicacion, orientacion):
+    def ubicador_barcos(self, eslora, ubicacion, orientacion): #verificamos limites del tablero segun la orientacion
         fila, columna = ubicacion
         if orientacion == "n":   #Orientacion N, el barco se colocará hacia arriba. La fila de inicio menos la eslora no sea menor que 0  
             if fila - eslora + 1 < 0:
@@ -63,11 +63,11 @@ class Tablero:
     
     
     
-    def disparo(self, ubicacion):
-        if ubicacion[0] <0 or ubicacion[0] > self.tamano or ubicacion[1] <0 or ubicacion[1] > self.tamano:
+    def disparo(self, ubicacion): #verificacion de coordenadas dentro del tablero
+        if ubicacion[0] <=0 or ubicacion[0] > self.tamano or ubicacion[1] <= 0 or ubicacion[1] > self.tamano:
             print("No se puede disparar a esa posición")
-            
-        elif self.tablero[ubicacion[0],ubicacion[1]] == "O":
+            #manejo del disparo a un barco
+        elif self.tablero[ubicacion[0],ubicacion[1]] == "O": #ubicacion 0 es fila, ubicacion 1 columna
             print("Tocado")
             self.tablero[ubicacion[0],ubicacion[1]] = "X"
         elif self.tablero[ubicacion[0],ubicacion[1]] == " ":
