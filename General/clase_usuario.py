@@ -27,18 +27,18 @@ class Usuario:
     def disparo_maquina(self):
         ubicacion = [random.randint(0,len(self.tablero_disparos)-1),random.randint(0,len(self.tablero_disparos)-1)] #Limita el aleatorio a las dimensiones del tablero
         print(ubicacion)
-        while self.tablero_disparos[ubicacion[0],ubicacion[1]] == "X" or self.tablero_disparos[ubicacion[0],ubicacion[1]] == "-": #Verifica si no se ha hecho ese disparo anteriormente
+        while self.tablero_disparos.tablero[ubicacion[0],ubicacion[1]] == "X" or self.tablero_disparos[ubicacion[0],ubicacion[1]] == "-": #Verifica si no se ha hecho ese disparo anteriormente
             ubicacion = [random.randint(0,len(self.tablero_disparos)-1),random.randint(0,len(self.tablero_disparos)-1)]
         
-        if jugador.tablero_barcos[ubicacion[0], ubicacion[1]] == "O":
-            jugador.tablero_barcos[ubicacion[0], ubicacion[1]] = "X" #Marca el acierto en el tablero de barcos del jugador
-            self.tablero_disparos[ubicacion[0], ubicacion[1]] = "X"
+        if jugador.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] == "O":
+            jugador.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] = "X" #Marca el acierto en el tablero de barcos del jugador
+            self.tablero_disparos.tablero[ubicacion[0], ubicacion[1]] = "X"
             print("¡Tocado!\nLa máquina te ha dado")
             resultado = True #Marca el acierto en el tablero de disparos de la máquina
             return resultado #Para controlar el bucle while en el que irá incluido y saber si sigue disparando o no
         else:
-            jugador.tablero_barcos[ubicacion[0], ubicacion[1]] = "-" #Marca el fallo
-            self.tablero_disparos[ubicacion[0], ubicacion[1]] = "-"
+            jugador.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] = "-" #Marca el fallo
+            self.tablero_disparos.tablero[ubicacion[0], ubicacion[1]] = "-"
             print("¡Agua! La máquina es casi tan mala como tú")
             resultado = False
             return resultado
@@ -61,19 +61,19 @@ class Usuario:
                 coordenada_2 = input("Introduce la columna: ")
             ubicacion = [int(coordenada_1)-1, int(coordenada_2)-1] 
 
-            if maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "O": #mismo mecanismo que disparo máquina
-                maquina.tablero_barcos[ubicacion[0], ubicacion[1]] = "X"
-                self.tablero_disparos[ubicacion[0], ubicacion[1]] = "X"
+            if maquina.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] == "O": #mismo mecanismo que disparo máquina
+                maquina.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] = "X"
+                self.tablero_disparos.tablero[ubicacion[0], ubicacion[1]] = "X"
                 print(f"¡Tocado! Vaya máquina\nTu último disparo ha sido {ubicacion[0]+1}, {ubicacion[1]+1}")
                 resultado = True
                 return resultado
-            if maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "X" or maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "-": #avisa al jugador si ya ha disparado ahí pero el turno lo pierde igual
+            if maquina.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] == "X" or maquina.tablero_barcos[ubicacion[0], ubicacion[1]] == "-": #avisa al jugador si ya ha disparado ahí pero el turno lo pierde igual
                 print("Ya has disparado ahí")
                 resultado = False
                 return resultado
             else:
-                maquina.tablero_barcos[ubicacion[0], ubicacion[1]] = "-"
-                self.tablero_disparos[ubicacion[0], ubicacion[1]] = "-"
+                maquina.tablero_barcos.tablero[ubicacion[0], ubicacion[1]] = "-"
+                self.tablero_disparos.tablero[ubicacion[0], ubicacion[1]] = "-"
                 print("¡Agua! Vaya paquetón")
                 resultado = False
                 return resultado
