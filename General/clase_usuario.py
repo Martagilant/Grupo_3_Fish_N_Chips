@@ -12,8 +12,8 @@ class Usuario:
         self.nombre = nombre
         self.barcos = barcos
         self.barcos_hundidos = barcos_hundidos
-        self.tablero_barcos = np.full((10,10), " ") #Falta importar clase tablero y poner un tablero creado ahí
-        self.tablero_disparos = np.full((10,10), " ") #Falta importar clase tablero y poner un tablero creado ahí
+        self.tablero_barcos = Tablero(10, nombre, barcos, [])
+        self.tablero_disparos = Tablero(10, nombre, barcos, [])
         self.vidas = self.calcula_vidas()
 
 
