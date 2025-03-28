@@ -1,7 +1,7 @@
 
 class Tablero:
 
-    def __init__(self, tamano, jugador_id, barcos,tablero_impacto ):
+    def __init__(self, tamano, jugador_id, barcos,tablero_impacto):
         self.tamano = tamano
         self.tablero = self.CrearVacio(tamano)
         self.jugador_id = jugador_id
