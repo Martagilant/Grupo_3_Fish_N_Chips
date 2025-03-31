@@ -1,3 +1,6 @@
+# Realmente en la carpeta hay más código y funcionalidades de los que está aquí incorporados (como la colocación manual de barcos: clase tablero),
+# pero tuvimos ciertos problemas para importar algunos scripts que no nos dio tiempo a solucionar
+
 import numpy as np
 import pandas as pd
 import clase_usuario as cu
